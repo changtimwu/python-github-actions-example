@@ -1,9 +1,9 @@
 name: Python application
 
 on:
-  push:  
-    branches: [ master, dev ]
-
+  push:
+    tags:
+      - '*'
 jobs:
   build:
 
@@ -37,14 +37,14 @@ jobs:
       run: |
         echo "GITHUB_REF=$GITHUB_REF"
         echo "GITHUB_REF_NAME=$GITHUB_REF_NAME"
-        if [[ $GITHUB_REF_NAME = "master" ]]; then
-            echo "ENV_NAME=production"
-        else
+        git describe --tags --long
+        if [[ "$GITHUB_REF_NAME" = *"dev" ]]; then
             echo "ENV_NAME=development"
-        fi
-        if [[ $GITHUB_REF_NAME = "dev" ]]; then
-            echo "branch is dev"
         else
-            echo "branch is master"
+            echo "ENV_NAME=production"
         fi
-        
+        if [[ "$GITHUB_REF_NAME" = *"dev" ]]; then
+            echo "this is more like a dev release"
+        else
+            echo "this is more like a main release"
+        fi
