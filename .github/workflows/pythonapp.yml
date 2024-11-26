@@ -56,4 +56,4 @@ jobs:
         push: true
         tags: |
           ghcr.io/${{ github.repository }}:${{ github.ref_name }}
-          ${{ endsWith(github.ref_name, 'dev') && format('ghcr.io/{0}:dev', github.repository) || 'ghcr.io/{0}:latest', github.repository)  }}
+          ${{ endsWith(github.ref_name, 'dev') && format('ghcr.io/{0}:dev', github.repository) || format('ghcr.io/{0}:latest', github.repository)  }}
