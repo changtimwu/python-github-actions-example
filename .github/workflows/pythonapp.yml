@@ -37,6 +37,8 @@ jobs:
       run: |
         echo "GITHUB_REF=$GITHUB_REF"
         echo "GITHUB_REF_NAME=$GITHUB_REF_NAME"
+        echo "GITHUB_SHA=$GITHUB_SHA"
+        env
         git describe --tags --long
         if [[ "$GITHUB_REF_NAME" = *"dev" ]]; then
             echo "ENV_NAME=development"
