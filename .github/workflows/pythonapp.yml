@@ -37,8 +37,14 @@ jobs:
       run: |
         echo "GITHUB_REF=$GITHUB_REF"
         echo "GITHUB_REF_NAME=$GITHUB_REF_NAME"
-        if [[ $GITHUB_REF_NAME = 'master' ]]; then  
-            echo "ENV_NAME=production" >> $GITHUB_ENV
+        if [[ $GITHUB_REF_NAME = "master" ]]; then
+            echo "ENV_NAME=production"
         else
-            echo "ENV_NAME=development" >> $GITHUB_ENV
+            echo "ENV_NAME=development"
         fi
+        if [[ $GITHUB_REF_NAME = "dev" ]]; then
+            echo "branch is dev"
+        else
+            echo "branch is master"
+        fi
+        
