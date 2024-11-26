@@ -2,7 +2,7 @@ name: Python application
 
 on:
   push:  
-    branches: [ main, dev ]
+    branches: [ master, dev ]
 
 jobs:
   build:
@@ -35,13 +35,10 @@ jobs:
         pytest
     - name: Inspect envs
       run: |
-        env
+        echo "GITHUB_REF=$GITHUB_REF"
         echo "GITHUB_REF_NAME=$GITHUB_REF_NAME"
-    - name: Deploy to Heroku
-      env:
-        HEROKU_API_TOKEN: ${{ secrets.HEROKU_API_TOKEN }}
-        HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
-      if: github.ref == 'refs/heads/master' && job.status == 'success'
-      run: |
-        git remote add heroku https://heroku:$HEROKU_API_TOKEN@git.heroku.com/$HEROKU_APP_NAME.git
-        git push heroku HEAD:master -f
+        if [[ $GITHUB_REF_NAME = 'master' ]]; then  
+            echo "ENV_NAME=production" >> $GITHUB_ENV
+        else
+            echo "ENV_NAME=development" >> $GITHUB_ENV
+        fi
