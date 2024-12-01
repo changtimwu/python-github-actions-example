@@ -3,23 +3,22 @@ FROM python:3.9-slim
 
 deps:  
     # Copy dependency files  
-    COPY requirements.txt ./  
-    COPY requirements-dev.txt ./  
+    COPY requirements.txt ./
     
     # Install dependencies  
-    RUN pip install -r requirements.txt -r requirements-dev.txt  
+    RUN pip install -r requirements.txt
     
     # Save the installed dependencies  
-    SAVE ARTIFACT /usr/local/lib/python3.9/site-packages site-packages  
+    SAVE ARTIFACT /usr/local/lib/python3.9/site-packages site-packages
 
 test:  
     FROM +deps  
-    
+
     # Copy source code and tests  
     COPY . .  
     
     # Copy saved dependencies  
-    COPY +deps/site-packages /usr/local/lib/python3.11/site-packages  
+    #COPY +deps/site-packages /usr/local/lib/python3.11/site-packages  
     
     # Run pytest  
     RUN python -m pytest tests/  
