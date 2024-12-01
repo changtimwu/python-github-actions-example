@@ -40,7 +40,7 @@ jobs:
         version: v0.8.15
     - name: test it with earthly
       run: |
-        earthly --allow-privileged +integration-test-api    
+        earthly --allow-privileged +test
     - name: Build ci version image and api test from outside host
       run: |
         earthly --allow-privileged +integration-test-api
