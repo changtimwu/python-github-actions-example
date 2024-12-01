@@ -33,6 +33,15 @@ jobs:
         pip install pytest
         export PYTHONPATH=src
         pytest
+    - uses: earthly/actions-setup@v1
+      with:
+        version: v0.8.15
+    - name: test it with earthly
+      run: |
+        earthly --allow-privileged +integration-test-api    
+    - name: Build ci version image and api test from outside host
+      run: |
+        earthly --allow-privileged +integration-test-api
     - name: Inspect envs
       run: |
         echo "GITHUB_REF=$GITHUB_REF"
