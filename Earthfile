@@ -18,10 +18,11 @@ test:
     COPY . .  
     
     # Copy saved dependencies  
-    #COPY +deps/site-packages /usr/local/lib/python3.11/site-packages  
-    
-    # Run pytest  
-    RUN python -m pytest tests/  
+    #COPY +deps/site-packages /usr/local/lib/python3.11/site-packages
+    # Run pytest
+    #RUN export PYTHONPATH=src
+    #RUN pip install pytest
+    RUN pytest
 
 build:  
     FROM +deps  
